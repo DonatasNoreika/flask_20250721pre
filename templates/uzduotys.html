@@ -1,0 +1,13 @@
+{% extends "base.html" %}
+{% block content %}
+
+<h1>Vartotojo {{ current_user.vardas}} įrašai:</h1>
+{% if uzduotys %}
+{% for uzduotis in uzduotys %}
+<p>{{ uzduotis.pavadinimas }}</p>
+<hr>
+{% endfor %}
+{% else %}
+<p>Užduočių nėra</p>
+{% endif %}
+{% endblock %}
