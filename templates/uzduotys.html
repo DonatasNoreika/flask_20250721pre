@@ -1,7 +1,7 @@
 {% extends "base.html" %}
 {% block content %}
 
-<h1>Vartotojo {{ current_user.vardas}} įrašai:</h1>
+<h1>Vartotojo {{ current_user.vardas}} užduotys:</h1>
 {% if uzduotys %}
 {% for uzduotis in uzduotys %}
 <p>{{ uzduotis.pavadinimas }}
