@@ -102,10 +102,33 @@ def sukurti_uzduoti():
         )
         db.session.add(uzduotis)
         db.session.commit()
-        flash('Užduotis sukurta!')
+        flash('Užduotis sukurta!', 'success')
         return redirect(url_for('uzduotys'))
     return render_template('sukurti_uzduoti.html', form=form)
 
+
+@app.route('/uzduotys/redaguoti/<int:id>', methods=['GET', 'POST'])
+@login_required
+def redaguoti_uzduoti(id):
+    uzduotis = Uzduotis.query.filter_by(id=id, vartotojas_id=current_user.id).first_or_404()
+    form = forms.UzduotisForma(obj=uzduotis)
+    if form.validate_on_submit():
+        uzduotis.pavadinimas = form.pavadinimas.data
+        uzduotis.atlikta = form.atlikta.data
+        db.session.commit()
+        flash('Užduotis atnaujinta!', 'success')
+        return redirect(url_for('uzduotys'))
+    return render_template('redaguoti_uzduoti.html', form=form)
+
+
+@app.route('/uzduotys/trinti/<int:id>')
+@login_required
+def trinti_uzduoti(id):
+    uzduotis = Uzduotis.query.filter_by(id=id, vartotojas_id=current_user.id).first_or_404()
+    db.session.delete(uzduotis)
+    db.session.commit()
+    flash('Užduotis ištrinta!', 'success')
+    return redirect(url_for('uzduotys'))
 
 if __name__ == '__main__':
     with app.app_context():
