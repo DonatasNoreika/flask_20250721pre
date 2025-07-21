@@ -28,3 +28,10 @@ class PrisijungimoForma(FlaskForm):
     slaptazodis = PasswordField('Slaptažodis', [DataRequired()])
     prisiminti = BooleanField("Prisiminti mane")
     submit = SubmitField('Prisijungti')
+
+
+class UzduotisForma(FlaskForm):
+    pavadinimas = StringField('Pavadinimas', [DataRequired()])
+    atlikta = BooleanField("Atlikta")
+    submit = SubmitField('Įvesti')
+

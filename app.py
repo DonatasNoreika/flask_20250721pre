@@ -90,6 +90,22 @@ def uzduotys():
     uzduotys = Uzduotis.query.filter_by(vartotojas=current_user).all()
     return render_template('uzduotys.html', uzduotys=uzduotys)
 
+@app.route('/uzduotys/nauja', methods=['GET', 'POST'])
+@login_required
+def sukurti_uzduoti():
+    form = forms.UzduotisForma()
+    if form.validate_on_submit():
+        uzduotis = Uzduotis(
+            pavadinimas=form.pavadinimas.data,
+            atlikta=form.atlikta.data,
+            vartotojas_id=current_user.id
+        )
+        db.session.add(uzduotis)
+        db.session.commit()
+        flash('Užduotis sukurta!')
+        return redirect(url_for('uzduotys'))
+    return render_template('sukurti_uzduoti.html', form=form)
+
 
 if __name__ == '__main__':
     with app.app_context():

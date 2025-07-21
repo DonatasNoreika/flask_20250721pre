@@ -4,7 +4,13 @@
 <h1>Vartotojo {{ current_user.vardas}} įrašai:</h1>
 {% if uzduotys %}
 {% for uzduotis in uzduotys %}
-<p>{{ uzduotis.pavadinimas }}</p>
+<p>{{ uzduotis.pavadinimas }}
+    {% if uzduotis.atlikta %}
+    <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="green" viewBox="0 0 16 16">
+        <path d="M13.485 1.929a1 1 0 0 1 1.415 1.414l-8 8a1 1 0 0 1-1.415 0l-4-4A1 1 0 1 1 2.9 5.929l3.293 3.293 7.293-7.293z"/>
+    </svg>
+    {% endif %}
+</p>
 <hr>
 {% endfor %}
 {% else %}
