@@ -40,10 +40,10 @@ class UzklausosAtnaujinimoForma(FlaskForm):
     el_pastas = StringField('El. paštas', validators=[DataRequired(), Email()])
     submit = SubmitField('Gauti')
 
-    def validate_email(self, el_pastas):
-        user = app.Vartotojas.query.filter_by(el_pastas=el_pastas.data).first()
-        if user is None:
-            raise ValidationError('Nėra paskyros, registruotos šiuo el. pašto adresu. Registruokitės.')
+    # def validate_el_pastas(self, el_pastas):
+    #     user = app.Vartotojas.query.filter_by(el_pastas=el_pastas.data).first()
+    #     if user is None:
+    #         raise ValidationError('Nėra paskyros, registruotos šiuo el. pašto adresu. Registruokitės.')
 
 
 class SlaptazodzioAtnaujinimoForma(FlaskForm):
