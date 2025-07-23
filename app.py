@@ -16,7 +16,7 @@ bcrypt = Bcrypt(app)
 db = SQLAlchemy(app)
 
 login_manager = LoginManager(app)
-login_manager.login_view = 'registruotis'
+login_manager.login_view = 'prisijungti'
 login_manager.login_message_category = 'info'
 
 
@@ -46,7 +46,7 @@ class Vartotojas(db.Model, UserMixin):
             user_id = s.loads(token)['user_id']
         except:
             return None
-        return Vartotojas.query.get(user_id)
+        return db.session.get(Vartotojas, user_id)
 
 class Uzduotis(db.Model):
     __tablename__ = "uzduotis"
@@ -97,7 +97,7 @@ def prisijungti():
 
 @login_manager.user_loader
 def load_user(vartotojo_id):
-    return Vartotojas.query.get(int(vartotojo_id))
+    return db.session.get(Vartotojas, int(vartotojo_id))
 
 
 @app.route("/atsijungti")
